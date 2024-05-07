@@ -6,5 +6,19 @@ spring:
     username: admin
     password: admin
     driverClassName: org.h2.Driver
+    initialization-mode: always
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  h2:
+    console.enabled: true
+  sql:
+    init:
+      mode: always
