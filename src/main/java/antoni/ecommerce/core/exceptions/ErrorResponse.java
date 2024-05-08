@@ -1,4 +1,4 @@
-package antoni.ecommerce.core.infraestructure.exceptions;
+package antoni.ecommerce.core.exceptions;
 
 public class ErrorResponse {
     private int status;

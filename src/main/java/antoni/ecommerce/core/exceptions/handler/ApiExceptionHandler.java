@@ -1,8 +1,8 @@
-package antoni.ecommerce.core.infraestructure.exceptions.handler;
+package antoni.ecommerce.core.exceptions.handler;
 
 
-import antoni.ecommerce.core.infraestructure.exceptions.BusinessException;
-import antoni.ecommerce.core.infraestructure.exceptions.ErrorResponse;
+import antoni.ecommerce.core.exceptions.BusinessException;
+import antoni.ecommerce.core.exceptions.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

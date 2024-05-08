@@ -1,4 +1,4 @@
-package antoni.ecommerce.core.infraestructure.exceptions;
+package antoni.ecommerce.core.exceptions;
 
 public class BusinessException extends Exception {
     private final int status;
