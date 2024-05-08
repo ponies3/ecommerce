@@ -1,13 +1,12 @@
 package antoni.ecommerce.core.infraestructure.exceptions.handler;
 
 
-import antoni.ecommerce.core.infraestructure.exceptions.ApiException;
+import antoni.ecommerce.core.infraestructure.exceptions.BusinessException;
 import antoni.ecommerce.core.infraestructure.exceptions.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,9 +18,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
-    @ExceptionHandler(value = {ApiException.class})
+    @ExceptionHandler(value = {BusinessException.class})
     @ResponseBody
-    public ResponseEntity<ErrorResponse> apiException(ApiException exception) {
+    public ResponseEntity<ErrorResponse> apiException(BusinessException exception) {
         log.error("ApiException: {}", exception.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(exception.getStatus(), exception.getCode(), exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getStatus()));
