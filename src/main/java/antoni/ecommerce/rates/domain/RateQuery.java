@@ -7,7 +7,7 @@ public class RateQuery {
     private final Integer productId;
     private final LocalDateTime applicationDate;
 
-    public RateQuery(Integer brandId, Integer productId, LocalDateTime applicationDate) {
+    public RateQuery(Integer productId, Integer brandId, LocalDateTime applicationDate) {
         this.brandId = brandId;
         this.productId = productId;
         this.applicationDate = applicationDate;

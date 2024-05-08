@@ -19,7 +19,7 @@ public class RatesRepositoryImpl implements RatesRepository {
     private RatesJpaRepository ratesJpaRepository;
 
     @Override
-    public Rate getRateByBrandAndProductAndApplicationDate(Integer brand, Integer product, LocalDateTime date) {
+    public Optional<Rate> getRateByBrandAndProductAndApplicationDate(Integer brand, Integer product, LocalDateTime date) {
         List<RateEntity> rates = ratesJpaRepository.findByBrandAndProductAndApplicationDate(brand, product, date);
         return rates.stream().map(rate -> new Rate(
                 rate.getId(),
@@ -30,6 +30,6 @@ public class RatesRepositoryImpl implements RatesRepository {
                 rate.getCurrency(),
                 rate.getPriority(),
                 rate.getBrandId()
-                )).findFirst().orElse(null);
+                )).findFirst();
     }
 }
