@@ -1,27 +1,33 @@
 package antoni.ecommerce.products.infrastructure.http;
 
+import antoni.ecommerce.core.exceptions.BusinessException;
+import antoni.ecommerce.products.application.GetProductRateUseCase;
+import antoni.ecommerce.products.domain.Product;
+import antoni.ecommerce.rates.application.GetRateUseCase;
 import antoni.ecommerce.rates.domain.Rate;
-import antoni.ecommerce.rates.domain.RatesRepository;
-import antoni.ecommerce.rates.infrastructure.jpa.RateEntity;
-import antoni.ecommerce.rates.infrastructure.jpa.RatesJpaRepository;
+import antoni.ecommerce.rates.domain.RateQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
 
     @Autowired
-    private RatesRepository ratesService;
+    private GetProductRateUseCase getProductRateUseCase;
 
-    @GetMapping()
-    public Rate getProducts() {
-        Rate rates = ratesService.getRateByBrandAndProductAndApplicationDate(1,35455, LocalDateTime.of(2020, 6, 14, 10, 0, 0));
-        return rates;
+    @GetMapping(value = "/{id}/rate", produces = "application/json")
+    public ResponseEntity<Product> getProducts(@PathVariable Integer id,
+                                               @RequestParam Integer brandId,
+                                               @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") LocalDateTime applicationDate) throws BusinessException {
+        Product product = getProductRateUseCase.getProductRate(new RateQuery(id, brandId, applicationDate));
+        return ResponseEntity.ok(product);
     }
 }
