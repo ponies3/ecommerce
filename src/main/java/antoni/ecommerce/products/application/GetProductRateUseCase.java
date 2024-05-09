@@ -2,7 +2,6 @@ package antoni.ecommerce.products.application;
 
 import antoni.ecommerce.core.exceptions.BusinessException;
 import antoni.ecommerce.core.exceptions.ErrorsConstants;
-import antoni.ecommerce.products.domain.Product;
 import antoni.ecommerce.products.domain.ProductRate;
 import antoni.ecommerce.rates.application.GetRateUseCase;
 import antoni.ecommerce.rates.domain.Rate;

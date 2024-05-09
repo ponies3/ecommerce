@@ -1,4 +1,4 @@
-package antoni.ecommerce.products.infrastructure;
+package antoni.ecommerce.products.infrastructure.http;
 
 import antoni.ecommerce.products.domain.ProductRate;
 import antoni.ecommerce.rates.domain.Rate;
