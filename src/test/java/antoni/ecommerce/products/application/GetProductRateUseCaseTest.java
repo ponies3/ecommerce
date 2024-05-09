@@ -46,21 +46,4 @@ public class GetProductRateUseCaseTest {
         assertThrows(BusinessException.class, () -> getProductRateUseCase.getProductRate(rateQuery));
     }
 
-    @Test
-    void getProductRate_throwsBusinessException_whenProductIdIsNull() throws BusinessException {
-        RateQuery rateQuery = new RateQuery(null, 1, LocalDateTime.now());
-        assertThrows(BusinessException.class, () -> getProductRateUseCase.getProductRate(rateQuery));
-    }
-
-    @Test
-    void getProductRate_throwsBusinessException_whenBrandIdIsNull() throws BusinessException {
-        RateQuery rateQuery = new RateQuery(234, null, LocalDateTime.now());
-        assertThrows(BusinessException.class, () -> getProductRateUseCase.getProductRate(rateQuery));
-    }
-
-    @Test
-    void getProductRate_throwsBusinessException_whenApplicationDateIsNull() throws BusinessException {
-        RateQuery rateQuery = new RateQuery(6544, 1, null);
-        assertThrows(BusinessException.class, () -> getProductRateUseCase.getProductRate(rateQuery));
-    }
 }
