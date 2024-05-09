@@ -20,10 +20,10 @@ public class GetProductRateUseCase {
         this.getRateUseCase = getRateUseCase;
     }
 
-    public Product getProductRate(RateQuery rateQuery) throws BusinessException {
-        Optional<Rate> rateOptional = getRateUseCase.getRateByBrandAndProductAndApplicationDate( rateQuery);
-        Rate rate = rateOptional.orElseThrow(() -> new BusinessException(ErrorsConstants.PRODUCT_RATE_NOT_FOUND,
-                ErrorsConstants.PRODUCT_RATE_NOT_FOUND_CODE, HttpStatus.NOT_FOUND.value()));
-        return new Product(rateQuery.getProductId(), rateQuery.getBrandId(), new ProductRate(rate, rateQuery.getApplicationDate()));
+    public ProductRate getProductRate(RateQuery rateQuery) throws BusinessException {
+        Optional<Rate> rateOptional = getRateUseCase.getRateByBrandAndProductAndApplicationDate(rateQuery);
+        return rateOptional.map(rate -> new ProductRate(rate, rateQuery.getApplicationDate()))
+                .orElseThrow(() -> new BusinessException(ErrorsConstants.PRODUCT_RATE_NOT_FOUND,
+                        ErrorsConstants.PRODUCT_RATE_NOT_FOUND_CODE, HttpStatus.NOT_FOUND.value()));
     }
 }

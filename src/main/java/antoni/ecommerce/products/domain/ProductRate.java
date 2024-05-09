@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 
 public class ProductRate {
     private final Integer id;
+    private final Integer brandId;
+    private final Integer productId;
     private final LocalDateTime applicationDate;
     private final BigDecimal price;
     private final String currency;
@@ -16,6 +18,8 @@ public class ProductRate {
         this.applicationDate = applicationDate;
         this.price = rate.getPrice();
         this.currency = rate.getCurrency();
+        this.brandId = rate.getBrandId();
+        this.productId = rate.getProductId();
     }
 
     public Integer getId() {
@@ -32,5 +36,13 @@ public class ProductRate {
 
     public String getCurrency() {
         return currency;
+    }
+
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public Integer getProductId() {
+        return productId;
     }
 }
