@@ -6,7 +6,6 @@ import antoni.ecommerce.rates.domain.RateQuery;
 import antoni.ecommerce.rates.domain.RatesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
