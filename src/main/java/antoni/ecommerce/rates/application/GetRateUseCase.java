@@ -20,10 +20,12 @@ public class GetRateUseCase {
     }
 
     public Optional<Rate> getRateByBrandAndProductAndApplicationDate(RateQuery rateQuery) throws BusinessException {
-        if (Objects.isNull(rateQuery.getBrandId())) {
+
+        if (Objects.isNull(rateQuery) || Objects.isNull(rateQuery.getBrandId())) {
             throw new BusinessException(ErrorsConstants.BRAND_ID_IS_REQUIRED,
                     ErrorsConstants.BRAND_ID_IS_REQUIRED_CODE, HttpStatus.BAD_REQUEST.value());
         }
+
         if (Objects.isNull(rateQuery.getProductId())) {
             throw new BusinessException(ErrorsConstants.PRODUCT_ID_IS_REQUIRED ,
                     ErrorsConstants.PRODUCT_ID_IS_REQUIRED_CODE, HttpStatus.BAD_REQUEST.value());
