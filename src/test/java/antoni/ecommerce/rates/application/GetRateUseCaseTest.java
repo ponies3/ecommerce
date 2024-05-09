@@ -7,6 +7,7 @@ import antoni.ecommerce.rates.domain.RatesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,11 +20,11 @@ import static org.mockito.Mockito.when;
 public class GetRateUseCaseTest {
     private GetRateUseCase getRateUseCase;
 
-    @Mock
     private RatesRepository ratesRepository;
 
     @BeforeEach
     void setUp() {
+        ratesRepository = Mockito.mock(RatesRepository.class);
         getRateUseCase = new GetRateUseCase(ratesRepository);
     }
 
