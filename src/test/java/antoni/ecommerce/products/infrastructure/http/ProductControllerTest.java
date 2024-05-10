@@ -51,6 +51,27 @@ public class ProductControllerTest {
         testGetProductRateEndpoint(35455, 1, "2020-06-16 21:00:00", responseSpected);
     }
 
+    @Test
+    public void getProductRate_applicationDateIsNull() throws Exception {
+        mockMvc.perform(get("/products/{id}/rates?brandId={brandId}&applicationDate={applicationDate}",
+                        35455, 1, null))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void getProductRate_applicationDateBadFormat() throws Exception {
+        mockMvc.perform(get("/products/{id}/rates?brandId={brandId}&applicationDate={applicationDate}",
+                        35455, 1, "2020-06-14 10:00:00.000"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void getProductRate_notFound() throws Exception {
+        mockMvc.perform(get("/products/{id}/rates?brandId={brandId}&applicationDate={applicationDate}",
+                        35455, 1, "2024-06-14 10:00:00"))
+                .andExpect(status().isNotFound());
+    }
+
     private void testGetProductRateEndpoint(Integer id, Integer brandId, String applicationDate, String responseSpected) throws Exception {
         mockMvc.perform(get("/products/{id}/rates?brandId={brandId}&applicationDate={applicationDate}",
                         id, brandId, applicationDate))

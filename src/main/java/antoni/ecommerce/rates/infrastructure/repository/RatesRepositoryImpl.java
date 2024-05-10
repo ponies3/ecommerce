@@ -15,8 +15,11 @@ import java.util.stream.Collectors;
 @Component
 public class RatesRepositoryImpl implements RatesRepository {
 
-    @Autowired
     private RatesJpaRepository ratesJpaRepository;
+
+    public RatesRepositoryImpl(RatesJpaRepository ratesJpaRepository) {
+        this.ratesJpaRepository = ratesJpaRepository;
+    }
 
     @Override
     public Optional<Rate> getRateByBrandAndProductAndApplicationDate(Integer brand, Integer product, LocalDateTime date) {
