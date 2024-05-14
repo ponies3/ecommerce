@@ -20,6 +20,33 @@ The application provides the following functionalities:
 
 The application is tested thoroughly with unit tests to ensure the correctness of the functionalities.
 
+**Product Rate Endpoint Details**
+
+- **GET /product-rate**: This endpoint retrieves the rate of a product based on the brand, product, and application date. The request parameters are as follows:
+
+  - `brand`: The brand of the product.
+  - `product`: The name of the product.
+  - `applicationDate`: The date of the application in the format `yyyy-MM-dd`.
+
+  The response is a JSON object containing the rate of the product.
+
+  Example Request:
+  ```bash
+    curl --location 'localhost:8080/products/35455/rates?brandId=1&applicationDate=2020-06-15%2010%3A00%3A00'
+  ```
+
+  Example Response:
+  ```json
+    {
+        "id": 3,
+        "brandId": 1,
+        "productId": 35455,
+        "applicationDate": "2020-06-15T10:00:00",
+        "price": 30.50,
+        "currency": "EUR"
+    }
+  ```
+
 ## Hexagonal Architecture
 
 In the context of this application, the Hexagonal Architecture is implemented as follows:
