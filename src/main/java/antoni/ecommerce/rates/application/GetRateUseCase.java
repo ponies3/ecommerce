@@ -8,6 +8,8 @@ import antoni.ecommerce.rates.domain.RatesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -34,8 +36,10 @@ public class GetRateUseCase {
             throw new BusinessException(ErrorsConstants.APPLICATION_DATE_IS_REQUIRED,
                     ErrorsConstants.APPLICATION_DATE_IS_REQUIRED_CODE, HttpStatus.BAD_REQUEST.value());
         }
-        return ratesRepository.getRateByBrandAndProductAndApplicationDate( rateQuery.getBrandId(),
+        List<Rate> rates = ratesRepository.getRateByBrandAndProductAndApplicationDate( rateQuery.getBrandId(),
                 rateQuery.getProductId(),
                 rateQuery.getApplicationDate());
+
+        return rates.stream().max(Comparator.comparingInt(Rate::getPriority));
     }
 }

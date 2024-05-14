@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,16 +44,16 @@ public class RatesRepositoryImplTest {
         when(ratesJpaRepository.findByBrandAndProductAndApplicationDate(any(), any(), any()))
                 .thenReturn(Collections.singletonList(rateEntity));
 
-        Optional<Rate> rate = ratesRepositoryImpl.getRateByBrandAndProductAndApplicationDate(1, 856436, LocalDateTime.now().plusDays(1));
+        List<Rate> rates = ratesRepositoryImpl.getRateByBrandAndProductAndApplicationDate(1, 856436, LocalDateTime.now().plusDays(1));
 
-        assertEquals(rateEntity.getId(), rate.get().getId());
-        assertEquals(rateEntity.getPrice(), rate.get().getPrice());
-        assertEquals(rateEntity.getStartDate(), rate.get().getStartDate());
-        assertEquals(rateEntity.getEndDate(), rate.get().getEndDate());
-        assertEquals(rateEntity.getProductId(), rate.get().getProductId());
-        assertEquals(rateEntity.getCurrency(), rate.get().getCurrency());
-        assertEquals(rateEntity.getPriority(), rate.get().getPriority());
-        assertEquals(rateEntity.getBrandId(), rate.get().getBrandId());
+        assertEquals(rateEntity.getId(), rates.getFirst().getId());
+        assertEquals(rateEntity.getPrice(),rates.getFirst().getPrice());
+        assertEquals(rateEntity.getStartDate(), rates.getFirst().getStartDate());
+        assertEquals(rateEntity.getEndDate(), rates.getFirst().getEndDate());
+        assertEquals(rateEntity.getProductId(), rates.getFirst().getProductId());
+        assertEquals(rateEntity.getCurrency(), rates.getFirst().getCurrency());
+        assertEquals(rateEntity.getPriority(), rates.getFirst().getPriority());
+        assertEquals(rateEntity.getBrandId(), rates.getFirst().getBrandId());
     }
 
     @Test
@@ -60,8 +61,8 @@ public class RatesRepositoryImplTest {
         when(ratesJpaRepository.findByBrandAndProductAndApplicationDate(any(), any(), any()))
                 .thenReturn(Collections.emptyList());
 
-        Optional<Rate> rate = ratesRepositoryImpl.getRateByBrandAndProductAndApplicationDate(1, 856436, LocalDateTime.now().plusDays(1));
+        List<Rate> rates = ratesRepositoryImpl.getRateByBrandAndProductAndApplicationDate(1, 856436, LocalDateTime.now().plusDays(1));
 
-        assertEquals(Optional.empty(), rate);
+        assertEquals(Collections.emptyList(), rates);
     }
 }

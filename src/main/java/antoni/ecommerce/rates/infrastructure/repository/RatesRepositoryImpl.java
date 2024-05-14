@@ -15,14 +15,14 @@ import java.util.stream.Collectors;
 @Component
 public class RatesRepositoryImpl implements RatesRepository {
 
-    private RatesJpaRepository ratesJpaRepository;
+    private final RatesJpaRepository ratesJpaRepository;
 
     public RatesRepositoryImpl(RatesJpaRepository ratesJpaRepository) {
         this.ratesJpaRepository = ratesJpaRepository;
     }
 
     @Override
-    public Optional<Rate> getRateByBrandAndProductAndApplicationDate(Integer brand, Integer product, LocalDateTime date) {
+    public List<Rate> getRateByBrandAndProductAndApplicationDate(Integer brand, Integer product, LocalDateTime date) {
         List<RateEntity> rates = ratesJpaRepository.findByBrandAndProductAndApplicationDate(brand, product, date);
         return rates.stream().map(rate -> new Rate(
                 rate.getId(),
@@ -33,6 +33,6 @@ public class RatesRepositoryImpl implements RatesRepository {
                 rate.getCurrency(),
                 rate.getPriority(),
                 rate.getBrandId()
-                )).findFirst();
+                )).collect(Collectors.toList());
     }
 }

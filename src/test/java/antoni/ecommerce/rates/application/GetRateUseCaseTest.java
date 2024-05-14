@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -30,18 +30,20 @@ public class GetRateUseCaseTest {
     @Test
     void getRateByBrandAndProductAndApplicationDate_returnsRate_whenRateExists() throws BusinessException {
         RateQuery rateQuery = new RateQuery(1, 1, LocalDateTime.now());
-        Rate expectedRate = new Rate(1, new BigDecimal("100.00"), LocalDateTime.now(), LocalDateTime.now().plusDays(1), 1, "EUR", 1, 1);
-        when(ratesRepository.getRateByBrandAndProductAndApplicationDate(rateQuery.getBrandId(), rateQuery.getProductId(), rateQuery.getApplicationDate())).thenReturn(Optional.of(expectedRate));
+        Rate expectedRatePriority0 = new Rate(1, new BigDecimal("100.00"), LocalDateTime.now(), LocalDateTime.now().plusDays(1), 1, "EUR", 0, 1);
+        Rate expectedRatePriority2 = new Rate(1, new BigDecimal("100.00"), LocalDateTime.now(), LocalDateTime.now().plusDays(1), 1, "EUR", 2, 1);
+        Rate expectedRatePriorityMAX = new Rate(1, new BigDecimal("100.00"), LocalDateTime.now(), LocalDateTime.now().plusDays(1), 1, "EUR", 7, 1);
+        when(ratesRepository.getRateByBrandAndProductAndApplicationDate(rateQuery.getBrandId(), rateQuery.getProductId(), rateQuery.getApplicationDate())).thenReturn(Arrays.asList(expectedRatePriority0, expectedRatePriorityMAX, expectedRatePriority2));
 
         Optional<Rate> actualRate = getRateUseCase.getRateByBrandAndProductAndApplicationDate(rateQuery);
 
-        assertEquals(expectedRate, actualRate.get());
+        assertEquals(expectedRatePriorityMAX, actualRate.get());
     }
 
     @Test
     void getRateByBrandAndProductAndApplicationDate_returnEmptyOptional_whenRateDoesNotExist() throws BusinessException {
         RateQuery rateQuery = new RateQuery(1, 1, LocalDateTime.now());
-        when(ratesRepository.getRateByBrandAndProductAndApplicationDate(rateQuery.getBrandId(), rateQuery.getProductId(), rateQuery.getApplicationDate())).thenReturn(Optional.empty());
+        when(ratesRepository.getRateByBrandAndProductAndApplicationDate(rateQuery.getBrandId(), rateQuery.getProductId(), rateQuery.getApplicationDate())).thenReturn(Collections.emptyList());
 
         assertEquals(Optional.empty(), getRateUseCase.getRateByBrandAndProductAndApplicationDate(rateQuery));
     }
